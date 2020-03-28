@@ -11,7 +11,7 @@ function updateAge2() {
 }
 
 
-function reset() {
+function rich_index_reset() {
     document.getElementById("rich_start2").value = "";
     document.getElementById("rich_end2").value = "";
     document.getElementById("rich_age2").value = "";
