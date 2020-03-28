@@ -1,726 +1,80 @@
-<!--
-  - Full screen clock (24-hour with seconds)
-
-  -->
-<!DOCTYPE html>
-<html style="height:100%; margin:0; padding:0">
-
-
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=IE9">
-  <meta name="viewport" content="width=device-width">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>대출이자계산기 | 원리금균등상환 | 원금균등상환</title>
-  <meta name="Keywords"
-        content="대출계산기, 대출이자계산기, 원리금상환계산기, 원리금균등상환 계산기, 원금균등상환 계산기, 원금만기일시상환 계산기, 대출이자계산기 xls, 대출 이자 계산 엑셀, 대출 이자, 이자 계산기, 대출 금리, 원리금균등상환, 원금균등상환, 원금만기일시상환,   담보대출, 대출금리, 대출이자, 신용대출, 은행대출, 전세대출, 전세자금대출, 주택담보대출, 주택대출, 학자금대출,  대출계산기, 대출이자계산기, 이자계산기, 대출금리계산기, 다음 금융계산기, 적금계산기, 예금계산기, 대출이자 계산기, 적금금리계산기, 이자계산, 대출이자계산법, 이자계산법, 디딤돌 대출">
-  <meta name="Description"
-        content="대출 이자 계산기는 엑셀(xls)보다 편리하게 바로 계산해볼 수 있습니다. 원리금균등상환/원금균등상환/원금만기일시상환 방법을 지원합니다. (모바일 지원 금융계산기, 대출계산기, 대출상환계산기, 대출 이자 비교)">
-  <style>
-        body {
-            margin: 2px 2px 2px 2px;
-            font-family: "Nanum Gothic", Gulim, Tahoma, sans-serif;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .money {
-            TEXT-ALIGN: right
-        }
-
-        ;
-
-
-        .b_head {
-            margin: 10px;
-        }
-
-        .b_head A {
-            line-height: 2;
-            font-size: larger;
-        }
-
-        .b_head A:visited {
-            color: blue;
-        }
-
-        .b_head_sub {
-            margin: 0px 0px 5px 20px;
-        }
-
-        .b_head_sub A {
-            line-height: 1.4;
-        }
-
-        .b_head_sub A:visited {
-            color: blue;
-        }
-
-        #b_main {
-            float: left;
-            width: 600px;
-        }
-
-        .b_main {
-            float: left;
-            width: 600px;
-        }
-
-        #b_right {
-            float: left;
-            margin-left: 25px;
-            width: 260px;
-        }
-
-        .b_right {
-            float: left;
-            margin-left: 25px;
-            width: 260px;
-        }
-
-        .b_tail {
-            text-align: center;
-            height: 40px;
-            padding-top: 20px;
-            font-size: smaller;
-            line-height: 1.4;
-        }
-
-        .form_quick_input {
-            cursor: pointer;
-            font-size: smaller;
-            padding: 5px;
-            white-space: nowrap;
-            border: 1px solid #e0e0e0;
-        }
-
-        .content_desc {
-            font-size: smaller;
-            line-height: 1.4;
-        }
-
-        ul>li {
-            line-height: 1.6;
-        }
-    </style>
-
-  <script>
-        var tmpNC = "";
-        function numberComma(obj) {
-            if (tmpNC == obj.value) return;
-            tmpNC = obj.value;
-            // [2012-12-01]
-            //obj.value=numberComma2(tmpNC);
-            document.getElementById('l_money_view').innerHTML = numberComma2(tmpNC) + "원";
-        }
-        function numberComma2(s) {
-            s = s.replace(/\D/g, "");
-            l = s.length - 3;
-            while (l > 0) {
-                s = s.substr(0, l) + "," + s.substr(l);
-                l -= 3;
-            }
-            return s;
-        }
-
-        function formSubmit() {
-            var f = document.forms.form;
-
-            if (f.l_money.value == "") {
-                alert("대출금을 입력하세요.");
-                f.l_money.focus();
-                return false;
-            }
-            if (f.l_rate.value == "") {
-                alert("대출금리를 입력하세요.");
-                f.l_rate.focus();
-                return false;
-            }
-            if (f.l_month.value == "") {
-                alert("대출기간을 입력하세요.");
-                f.l_month.focus();
-                return false;
-            }
-            if (f.l_type.value == "") {
-                alert("상환방법을 선택하세요.");
-                f.l_type.focus();
-                return false;
-            }
-
-            // [2012-12-01] 콤마 제거
-            f.l_money.value = f.l_money.value.replace(/,/g, "");
-
-            // [2012-12-09] SEO
-            //f.submit();
-            var url = '/loan/' + f.l_type.value + '/' + f.l_money.value + '/' + f.l_rate.value + '/' + f.l_month.value;
-
-            if (f.l_type.value != 3 && f.l_term.value > 0)
-                url = url + '/' + f.l_term.value;
-
-            location.href = url;
-            return false;
-        }
-
-        function formReset() {
-            var f = document.forms.form;
-            f.l_money.value = '';
-            f.l_rate.value = '';
-            f.l_month.value = '';
-        }
-
-        function moneyCalc(plus) {
-            var money = parseInt(document.forms.form.l_money.value, 10) || 0;
-            document.forms.form.l_money.value = money + plus;
-
-            numberComma(document.forms.form.l_money);
-        }
-
-        function l_type_change(val) {
-            if (val == '3') {
-                document.getElementById('l_term_use').style.display = 'none';
-                document.getElementById('l_term_not_use').style.display = '';
-            } else {
-                document.getElementById('l_term_use').style.display = '';
-                document.getElementById('l_term_not_use').style.display = 'none';
-            }
-
-        }
-
-        window.onload = function () {
-            document.forms.form.l_money.focus();
-        }
-
-    </script>
-
-  <style type="text/css">
-        .fb_hidden {
-            position: absolute;
-            top: -10000px;
-            z-index: 10001
-        }
-
-        .fb_reposition {
-            overflow: hidden;
-            position: relative
-        }
-
-        .fb_invisible {
-            display: none
-        }
-
-        .fb_reset {
-            background: none;
-            border: 0;
-            border-spacing: 0;
-            color: #000;
-            cursor: auto;
-            direction: ltr;
-            font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
-            font-size: 11px;
-            font-style: normal;
-            font-variant: normal;
-            font-weight: normal;
-            letter-spacing: normal;
-            line-height: 1;
-            margin: 0;
-            overflow: visible;
-            padding: 0;
-            text-align: left;
-            text-decoration: none;
-            text-indent: 0;
-            text-shadow: none;
-            text-transform: none;
-            visibility: visible;
-            white-space: normal;
-            word-spacing: normal
-        }
-
-        .fb_reset>div {
-            overflow: hidden
-        }
-
-        @keyframes fb_transform {
-            from {
-                opacity: 0;
-                transform: scale(.95)
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1)
-            }
-        }
-
-        .fb_animate {
-            animation: fb_transform .3s forwards
-        }
-
-        .fb_dialog {
-            background: rgba(82, 82, 82, .7);
-            position: absolute;
-            top: -10000px;
-            z-index: 10001
-        }
-
-        .fb_dialog_advanced {
-            border-radius: 8px;
-            padding: 10px
-        }
-
-        .fb_dialog_content {
-            background: #fff;
-            color: #373737
-        }
-
-        .fb_dialog_close_icon {
-            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;
-            cursor: pointer;
-            display: block;
-            height: 15px;
-            position: absolute;
-            right: 18px;
-            top: 17px;
-            width: 15px
-        }
-
-        .fb_dialog_mobile .fb_dialog_close_icon {
-            left: 5px;
-            right: auto;
-            top: 5px
-        }
-
-        .fb_dialog_padding {
-            background-color: transparent;
-            position: absolute;
-            width: 1px;
-            z-index: -1
-        }
-
-        .fb_dialog_close_icon:hover {
-            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent
-        }
-
-        .fb_dialog_close_icon:active {
-            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent
-        }
-
-        .fb_dialog_iframe {
-            line-height: 0
-        }
-
-        .fb_dialog_content .dialog_title {
-            background: #6d84b4;
-            border: 1px solid #365899;
-            color: #fff;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 0
-        }
-
-        .fb_dialog_content .dialog_title>span {
-            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;
-            float: left;
-            padding: 5px 0 7px 26px
-        }
-
-        body.fb_hidden {
-            height: 100%;
-            left: 0;
-            margin: 0;
-            overflow: visible;
-            position: absolute;
-            top: -10000px;
-            transform: none;
-            width: 100%
-        }
-
-        .fb_dialog.fb_dialog_mobile.loading {
-            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;
-            min-height: 100%;
-            min-width: 100%;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            z-index: 10001
-        }
-
-        .fb_dialog.fb_dialog_mobile.loading.centered {
-            background: none;
-            height: auto;
-            min-height: initial;
-            min-width: initial;
-            width: auto
-        }
-
-        .fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner {
-            width: 100%
-        }
-
-        .fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content {
-            background: none
-        }
-
-        .loading.centered #fb_dialog_loader_close {
-            clear: both;
-            color: #fff;
-            display: block;
-            font-size: 18px;
-            padding-top: 20px
-        }
-
-        #fb-root #fb_dialog_ipad_overlay {
-            background: rgba(0, 0, 0, .4);
-            bottom: 0;
-            left: 0;
-            min-height: 100%;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100%;
-            z-index: 10000
-        }
-
-        #fb-root #fb_dialog_ipad_overlay.hidden {
-            display: none
-        }
-
-        .fb_dialog.fb_dialog_mobile.loading iframe {
-            visibility: hidden
-        }
-
-        .fb_dialog_mobile .fb_dialog_iframe {
-            position: sticky;
-            top: 0
-        }
-
-        .fb_dialog_content .dialog_header {
-            background: linear-gradient(from(#738aba), to(#2c4987));
-            border-bottom: 1px solid;
-            border-color: #043b87;
-            box-shadow: white 0 1px 1px -1px inset;
-            color: #fff;
-            font: bold 14px Helvetica, sans-serif;
-            text-overflow: ellipsis;
-            text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0;
-            vertical-align: middle;
-            white-space: nowrap
-        }
-
-        .fb_dialog_content .dialog_header table {
-            height: 43px;
-            width: 100%
-        }
-
-        .fb_dialog_content .dialog_header td.header_left {
-            font-size: 12px;
-            padding-left: 5px;
-            vertical-align: middle;
-            width: 60px
-        }
-
-        .fb_dialog_content .dialog_header td.header_right {
-            font-size: 12px;
-            padding-right: 5px;
-            vertical-align: middle;
-            width: 60px
-        }
-
-        .fb_dialog_content .touchable_button {
-            background: linear-gradient(from(#4267B2), to(#2a4887));
-            background-clip: padding-box;
-            border: 1px solid #29487d;
-            border-radius: 3px;
-            display: inline-block;
-            line-height: 18px;
-            margin-top: 3px;
-            max-width: 85px;
-            padding: 4px 12px;
-            position: relative
-        }
-
-        .fb_dialog_content .dialog_header .touchable_button input {
-            background: none;
-            border: none;
-            color: #fff;
-            font: bold 12px Helvetica, sans-serif;
-            margin: 2px -12px;
-            padding: 2px 6px 3px 6px;
-            text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
-        }
-
-        .fb_dialog_content .dialog_header .header_center {
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 18px;
-            text-align: center;
-            vertical-align: middle
-        }
-
-        .fb_dialog_content .dialog_content {
-            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;
-            border: 1px solid #4a4a4a;
-            border-bottom: 0;
-            border-top: 0;
-            height: 150px
-        }
-
-        .fb_dialog_content .dialog_footer {
-            background: #f5f6f7;
-            border: 1px solid #4a4a4a;
-            border-top-color: #ccc;
-            height: 40px
-        }
-
-        #fb_dialog_loader_close {
-            float: left
-        }
-
-        .fb_dialog.fb_dialog_mobile .fb_dialog_close_button {
-            text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
-        }
-
-        .fb_dialog.fb_dialog_mobile .fb_dialog_close_icon {
-            visibility: hidden
-        }
-
-        #fb_dialog_loader_spinner {
-            animation: rotateSpinner 1.2s linear infinite;
-            background-color: transparent;
-            background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);
-            background-position: 50% 50%;
-            background-repeat: no-repeat;
-            height: 24px;
-            width: 24px
-        }
-
-        @keyframes rotateSpinner {
-            0% {
-                transform: rotate(0deg)
-            }
-
-            100% {
-                transform: rotate(360deg)
-            }
-        }
-
-        .fb_iframe_widget {
-            display: inline-block;
-            position: relative
-        }
-
-        .fb_iframe_widget span {
-            display: inline-block;
-            position: relative;
-            text-align: justify
-        }
-
-        .fb_iframe_widget iframe {
-            position: absolute
-        }
-
-        .fb_iframe_widget_fluid_desktop,
-        .fb_iframe_widget_fluid_desktop span,
-        .fb_iframe_widget_fluid_desktop iframe {
-            max-width: 100%
-        }
-
-        .fb_iframe_widget_fluid_desktop iframe {
-            min-width: 220px;
-            position: relative
-        }
-
-        .fb_iframe_widget_lift {
-            z-index: 1
-        }
-
-        .fb_iframe_widget_fluid {
-            display: inline
-        }
-
-        .fb_iframe_widget_fluid span {
-            width: 100%
-        }
-    </style>
-</head>
-
-<body cz-shortcut-listen="true">
-<div id="b_main" class="b_main">
-  <table width="100%" cellpadding="0" cellspacing="3" bgcolor="#DBDBDB">
-    <tbody>
-    <tr>
-      <td bgcolor="#FFFFFF">
-        <table width="100%" cellpadding="10" cellspacing="0" border="0">
-          <tbody>
-          <tr>
-            <td>☞ 대출금의 상환금액과 이자를 계산합니다.</td>
-          </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <img width="0" height="10"><br>
-
-  <form name="form" method="get" action="/bank/loan_calc.php" style="margin:0px"
-        onsubmit="JavaScript:return formSubmit();">
-    <table width="100%" cellspacing="1" cellpadding="3" bgcolor="#707070">
-      <tbody>
-      <tr>
-        <td width="25%" bgcolor="#E7E7E7">대출금</td>
-        <td bgcolor="#FFFFFF"><input type="number" name="l_money" class="money" min="1" size="12"
-                                     maxlength="20" value="" onkeyup="JavaScript:numberComma(this);">원<br>
-          <div id="l_money_view">&nbsp;</div>
-          <div style="padding:2px; line-height:2">
-            <span class="form_quick_input" onclick="JavaScript:moneyCalc(100000);">십만원</span>
-            <span class="form_quick_input" onclick="JavaScript:moneyCalc(1000000);">백만원</span>
-            <span class="form_quick_input" onclick="JavaScript:moneyCalc(10000000);">천만원</span>
-            <span class="form_quick_input" onclick="JavaScript:moneyCalc(100000000);">일억원</span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td bgcolor="#E7E7E7">대출금리</td>
-        <td bgcolor="#FFFFFF">연<input type="text" name="l_rate" class="money" size="4" maxlength="7"
-                                      value="">%<br>
-          <div style="padding:2px; line-height:2">
-            <span class="form_quick_input" onclick="document.forms.form.l_rate.value='3'">3%</span>
-            <span class="form_quick_input" onclick="document.forms.form.l_rate.value='4'">4%</span>
-            <span class="form_quick_input" onclick="document.forms.form.l_rate.value='5'">5%</span>
-            <span class="form_quick_input" onclick="document.forms.form.l_rate.value='6'">6%</span>
-            <span class="form_quick_input" onclick="document.forms.form.l_rate.value='7'">7%</span>
-            <span class="form_quick_input"
-                  onclick="document.forms.form.l_rate.value='10'">10%</span> <span
-                  class="form_quick_input" onclick="document.forms.form.l_rate.value='39'">39%</span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td bgcolor="#E7E7E7">대출기간</td>
-        <td bgcolor="#FFFFFF"><input type="number" name="l_month" class="money" min="0" max="9999"
-                                     size="4" maxlength="4" value="">개월<br>
-          <div style="padding:2px; line-height:2">
-                                <span class="form_quick_input"
-                                      onclick="document.forms.form.l_month.value='12'">1년</span> <span
-                  class="form_quick_input" onclick="document.forms.form.l_month.value='24'">2년</span>
-            <span class="form_quick_input"
-                  onclick="document.forms.form.l_month.value='36'">3년</span> <span
-                  class="form_quick_input" onclick="document.forms.form.l_month.value='48'">4년</span>
-            <span class="form_quick_input"
-                  onclick="document.forms.form.l_month.value='60'">5년</span> <span
-                  class="form_quick_input"
-                  onclick="document.forms.form.l_month.value='120'">10년</span> <span
-                  class="form_quick_input"
-                  onclick="document.forms.form.l_month.value='180'">15년</span> <span
-                  class="form_quick_input"
-                  onclick="document.forms.form.l_month.value='240'">20년</span> <span
-                  class="form_quick_input"
-                  onclick="document.forms.form.l_month.value='360'">30년</span> </div>
-        </td>
-      </tr>
-      <tr>
-        <td bgcolor="#E7E7E7">거치기간</td>
-        <td bgcolor="#FFFFFF">
-          <div id="l_term_use"><input type="number" name="l_term" class="money" min="0" max="9999"
-                                      size="4" maxlength="4" value="0">개월
-            <span style="padding:2px; line-height:2">
-                                    <span class="form_quick_input"
-                                          onclick="document.forms.form.l_term.value='0'">0년</span> <span
-                    class="form_quick_input"
-                    onclick="document.forms.form.l_term.value='12'">1년</span> <span
-                    class="form_quick_input"
-                    onclick="document.forms.form.l_term.value='24'">2년</span> <span
-                    class="form_quick_input"
-                    onclick="document.forms.form.l_term.value='36'">3년</span> </span>
-          </div>
-          <div id="l_term_not_use" style="display: none;">없음</div>
-        </td>
-      </tr>
-      <tr>
-        <td bgcolor="#E7E7E7" nowrap="">상환방법</td>
-        <td bgcolor="#FFFFFF">
-          <select name="l_type" onchange="JavaScript:l_type_change(this.value);">
-            <option value="1">원리금균등상환</option>
-            <option value="2">원금균등상환</option>
-            <option value="3">원금만기일시상환</option>
-          </select>
-
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-    <div style="margin:5px 0px 5px 0px">
-      <div style="float: left;">
-        <input type="submit" value="계산하기">
-        <input type="button" value="다시작성"
-               onclick="JavaScript:if (confirm('내용을 지우고 다시 작성하시겠습니까?')) { formReset(); }">
-      </div>
-
-      <div style="float: right; margin:0px 2px 5px 5px;">
-        <!--<span style="height:26px; vertical-align:top; margin-top:3px;">공유:</span>-->
-      </div>
-      <div style="clear:both;"></div>
-
-      <div id="fb-root" class=" fb_reset">
-        <div style="position: absolute; top: -10000px; width: 0px; height: 0px;">
-          <div></div>
+<body onload="init();">
+    <header class="header">
+        <span class="header__edit">Rich Makers</span>
+        <span class="header__title">대출 이자 계산기</span>
+    </header>
+    <section class="chats">
+        <div class="chat">
+            <div class="chat__text">
+                <span class="chat__username">0</span>
+                <span class="chat__preview"></span>
+            </div>
+            <span class="chat__date"></span>
         </div>
-      </div>
-      <script>(function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&appId=676641839050591&version=v2.0";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-    </div>
-    <div style="text-align: center; margin: 10px 0px 10px 0px;"></div>
-  </form>
-
-  <table width="100%" cellspacing="0" cellpadding="0">
-    <tbody>
-    <tr>
-      <td class="content_desc">
-        ※ 대출 상환 방법<br>
-        &nbsp; <b>원리금균등상환</b> - 가장 일반적인 방법으로, 원금과 이자를 합한 상환금액이 매달 동일합니다.<br>
-        &nbsp; <b>원금균등상환</b> - 매달 원금을 동일하게 상환하므로, 이자는 매달 줄어들게 됩니다. 단, 매달 이자가 다르므로 원금과 이자를 합한 상환금액도
-        매달 달라집니다.<br>
-        &nbsp; <b>원금만기일시상환</b> - 대출기간동안 매달 이자만 상환하하고, 대출 만기일에 원금을 일시상환 합니다.<br>
-        <br>
-        ※ 거치기간<br>
-        &nbsp; 거치기간동안 이자만 납부하고, 거치기간이 끝나면 원금+이자를 납부하게 됩니다. 따라서 원리금/원금 균등상환에만 적용됩니다.<br>
-        <br>
-        ※ 오차 가능성 안내<br>
-        &nbsp; 본 대출금 상환 계산기는 월 단위로 계산 한 것이므로, 실제 대출 시작 일자에 일할 계산에 따른 약간의 차이는 있을 수 있습니다.<br>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <br>
-
-</div>
-
-<script language="JavaScript">
-< !--
-            function setCookie(c_name, value, exdays) {
-                var exdate = new Date();
-                exdate.setDate(exdate.getDate() + exdays);
-                var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
-                document.cookie = c_name + "=" + c_value;
-            }
-
-
-//-->
-    </script>
-
-
-
-</nobr>
-</body>
-<whale-quicksearch translate="no"></whale-quicksearch>
-
-</html>
+        <div class="chat">
+            <div class="chat__avatar">대출금</div>
+            <div class="chat__text">
+                <span class="chat__username">
+                    <input type="text" id="rich_start2" disabled style="text-align: right;" />
+                </span>
+                <span class="chat__preview">만원</span>
+            </div>
+            <span class="chat__date">
+                <input type="button" class="addBtn" onclick="addMoney('rich_start2','10000')" id="rich_start2_10000"
+                    value="+1억" />
+                <input type="button" class="addBtn" id="rich_start2_1000" onclick="addMoney('rich_start2','1000')"
+                    value="+1천" /><br>
+                <input type="button" class="addBtn" onclick="addMoney('rich_start2','-10000')" id="rich_start2_10000"
+                    value="-1억" />
+                <input type="button" class="addBtn" id="rich_start2_1000" onclick="addMoney('rich_start2','-1000')"
+                    value="-1천" /></span>
+        </div>
+        <div class="chat">
+            <div class="chat__avatar">대출금리</div>
+            <div class="chat__text">
+                <span class="chat__username">
+                    <input type="text" id="rich_end2" disabled style="text-align: right;" />
+                </span>
+                <span class="chat__preview">만원</span>
+            </div>
+            <span class="chat__date">
+                <input type="button" class="addBtn" onclick="addMoney('rich_end2','1000')" value="+1천" />
+                <input type="button" class="addBtn" onclick="addMoney('rich_end2','100')" value="+1백" /><br>
+                <input type="button" class="addBtn" onclick="addMoney('rich_end2','-1000')" value="-1천" />
+                <input type="button" class="addBtn" onclick="addMoney('rich_end2','-100')" value="-1백" />
+            </span>
+        </div>
+        <div class="chat">
+            <div class="chat__avatar">대출기간</div>
+            <div class="chat__text">
+                <span class="chat__username">
+                    <input type="text" id="rich_age2" disabled style="text-align: right;" />
+                </span>
+                <span class="chat__preview">세</span>
+            </div>
+            <span class="chat__date">
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','10')" value="+10" />
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','1')" value="+1" /><br>
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','-10')" value="-10" />
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','-1')" value="-1" />
+            </span>
+        </div>
+        <div class="chat">
+            <div class="chat__avatar">대출기간</div>
+            <div class="chat__text">
+                <span class="chat__username">
+                    <input type="text" id="rich_age2" disabled style="text-align: right;" />
+                </span>
+                <span class="chat__preview">세</span>
+            </div>
+            <span class="chat__date">
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','10')" value="+10" />
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','1')" value="+1" /><br>
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','-10')" value="-10" />
+                <input type="button" class="addBtn" onclick="addMoney('rich_age2','-1')" value="-1" />
+            </span>
+        </div>
+        <div class="chat">
+            <div id="resultArea">결과</div>
+        </div>
+    </section>

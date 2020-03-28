@@ -1,3 +1,5 @@
+document.write("<script src='rich_index_calculator.js'></script>");
+
 function init() {
   includeHTML();
 
