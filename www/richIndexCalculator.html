@@ -1,0 +1,65 @@
+<body onload="init();">
+  <header class="header">
+    <span class="header__edit">Rich Makers</span>
+    <span class="header__title">부자 지수 계산기</span>
+  </header>
+  <section class="chats">
+    <div class="chat">
+      <div class="chat__text">
+        <span class="chat__username">0</span>
+        <span class="chat__preview"></span>
+      </div>
+      <span class="chat__date"></span>
+    </div>
+    <div class="chat">
+      <div class="chat__avatar">순자산</div>
+      <div class="chat__text">
+        <span class="chat__username">
+          <input type="text" id="rich_start2" disabled style="text-align: right;" />
+        </span>
+        <span class="chat__preview">만원</span>
+      </div>
+      <span class="chat__date">
+        <input type="button" class="addBtn" onclick="addMoney('rich_start2','10000')" id="rich_start2_10000"
+          value="+1억" />
+        <input type="button" class="addBtn" id="rich_start2_1000" onclick="addMoney('rich_start2','1000')"
+          value="+1천" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_start2','-10000')" id="rich_start2_10000"
+          value="-1억" />
+        <input type="button" class="addBtn" id="rich_start2_1000" onclick="addMoney('rich_start2','-1000')"
+          value="-1천" /></span>
+    </div>
+    <div class="chat">
+      <div class="chat__avatar">연수입</div>
+      <div class="chat__text">
+        <span class="chat__username">
+          <input type="text" id="rich_end2" disabled style="text-align: right;" />
+        </span>
+        <span class="chat__preview">만원</span>
+      </div>
+      <span class="chat__date">
+        <input type="button" class="addBtn" onclick="addMoney('rich_end2','1000')" value="+1천" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_end2','100')" value="+1백" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_end2','-1000')" value="-1천" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_end2','-100')" value="-백" />
+      </span>
+    </div>
+    <div class="chat">
+      <div class="chat__avatar">나이</div>
+      <div class="chat__text">
+        <span class="chat__username">
+          <input type="text" id="rich_age2" disabled style="text-align: right;" />
+        </span>
+        <span class="chat__preview">세</span>
+      </div>
+      <span class="chat__date">
+        <input type="button" class="addBtn" onclick="addMoney('rich_age2','10')" value="+10" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_age2','1')" value="+1" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_age2','-10')" value="-10" />
+        <input type="button" class="addBtn" onclick="addMoney('rich_age2','-1')" value="-1" />
+      </span>
+    </div>
+    <div class="chat">
+      <div id="resultArea">결과</div>
+    </div>
+  </section>
