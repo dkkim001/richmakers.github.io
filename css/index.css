@@ -53,7 +53,7 @@ body {
 ,.chat__username input{
   font-weight: 600;
   display: inline;
-  width: 50%;
+  width: 20%;
 }
 .chat__username input {
   width: 50px;
@@ -67,7 +67,7 @@ body {
 .chat__date {
   font-size: 12px;
   text-align: right;
-  width:180px;
+  width:50%;
 }
 
 .footer {
