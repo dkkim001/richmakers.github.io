@@ -39,21 +39,24 @@ body {
 }
 
 .chat__avatar {
-  width: 23%;
+  width: 21%;
   /* height: 50px; */
   border-radius: 50%;
 }
 
 .chat__text {
   flex-grow: 2;
-  margin-left: 20px;
+  margin-left: 2px;
 }
 
-.chat__username,
-.chat__username input {
+.chat__username
+,.chat__username input{
   font-weight: 600;
   display: inline;
   width: 50%;
+}
+.chat__username input {
+  width: 50px;
 }
 .chat__preview,
 .chat__date {
