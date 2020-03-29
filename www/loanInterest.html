@@ -15,76 +15,101 @@
             <div class="chat__avatar">대출금</div>
             <div class="chat__text">
                 <span class="chat__username">
-                    <input type="text" id="loan_amt" disabled style="text-align: right;" />
+                    <input type="text" id="loan_amt" disabled style="text-align: right;" /> 만원
                 </span>
-                <span class="chat__preview">만원</span>
+                <span class="chat__preview">
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('loan_amt','10000')"
+                            id="loan_amt_10000" value="+1억" />
+                        <input type="button" class="addBtn btn" id="loan_amt_1000"
+                            onclick="addMoney2('loan_amt','1000')" value="+1천" />
+                        <input type="button" class="addBtn btn" id="loan_amt_100" onclick="addMoney2('loan_amt','100')"
+                            value="+1백" />
+                        <input type="button" class="addBtn btn" id="loan_amt_10" onclick="addMoney2('loan_amt','10')"
+                            value="+1십" />
+                    </p>
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('loan_amt','-10000')"
+                            id="loan_amt_10000" value="-1억" />
+                        <input type="button" class="addBtn btn" id="loan_amt_1000"
+                            onclick="addMoney2('loan_amt','-1000')" value="-1천" />
+                        <input type="button" class="addBtn btn" id="loan_amt_100" onclick="addMoney2('loan_amt','-100')"
+                            value="-1백" />
+                        <input type="button" class="addBtn btn" id="loan_amt_10" onclick="addMoney2('loan_amt','-10')"
+                            value="-1십" />
+                    </p>
+                </span>
+
             </div>
-            <span class="chat__date">
-                <input type="button" class="addBtn" onclick="addMoney('loan_amt','10000')" id="loan_amt_10000"
-                    value="+1억" />
-                <input type="button" class="addBtn" id="loan_amt_1000" onclick="addMoney('loan_amt','1000')"
-                    value="+1천" />
-                <input type="button" class="addBtn" id="loan_amt_100" onclick="addMoney('loan_amt','100')"
-                    value="+1백" />
-                <input type="button" class="addBtn" id="loan_amt_10" onclick="addMoney('loan_amt','10')" value="+1십" />
-                <br>
-                <input type="button" class="addBtn" onclick="addMoney('loan_amt','-10000')" id="loan_amt_10000"
-                    value="-1억" />
-                <input type="button" class="addBtn" id="loan_amt_1000" onclick="addMoney('loan_amt','-1000')"
-                    value="-1천" />
-                <input type="button" class="addBtn" id="loan_amt_100" onclick="addMoney('loan_amt','-100')"
-                    value="-1백" />
-                <input type="button" class="addBtn" id="loan_amt_10" onclick="addMoney('loan_amt','-10')" value="-1십" />
-            </span>
+            <span class="chat__date"></span>
 
         </div>
         <div class="chat">
             <div class="chat__avatar">대출금리</div>
             <div class="chat__text">
                 <span class="chat__username">
-                    연 <input type="text" id="interest_rate" disabled style="text-align: right;" />
+                    연 <input type="text" id="interest_rate" disabled style="text-align: right;" /> %
                 </span>
-                <span class="chat__preview">%</span>
+                <span class="chat__preview">
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('interest_rate','10')" value="+10" />
+                        <input type="button" class="addBtn btn" onclick="addMoney2('interest_rate','1')" value="+1" />
+                    </p>
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('interest_rate','-10')"
+                            value="-10" />
+                        <input type="button" class="addBtn btn" onclick="addMoney2('interest_rate','-1')" value="-1" />
+                    </p>
+                </span>
             </div>
             <span class="chat__date">
-                <input type="button" class="addBtn" onclick="addMoney('interest_rate','10')" value="+10" />
-                <input type="button" class="addBtn" onclick="addMoney('interest_rate','1')" value="+1" /><br>
-                <input type="button" class="addBtn" onclick="addMoney('interest_rate','-10')" value="-10" />
-                <input type="button" class="addBtn" onclick="addMoney('interest_rate','-1')" value="-1" />
+
             </span>
         </div>
         <div class="chat">
             <div class="chat__avatar">대출기간</div>
             <div class="chat__text">
                 <span class="chat__username">
-                    <input type="text" id="loan_period" disabled style="text-align: right;" />
+                    <input type="text" id="loan_period" disabled style="text-align: right;" /> 개월
                 </span>
-                <span class="chat__preview">개월</span>
+                <span class="chat__preview">
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('loan_period','12')" value="+1년" />
+                        <input type="button" class="addBtn btn" onclick="addMoney2('loan_period','1')" value="+1개월" />
+                    </p>
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('loan_period','-12')" value="-1년" />
+                        <input type="button" class="addBtn btn" onclick="addMoney2('loan_period','-1')" value="-1개월" />
+                    </p>
+                </span>
             </div>
             <span class="chat__date">
-                <input type="button" class="addBtn" onclick="addMoney('loan_period','10')" value="+10" />
-                <input type="button" class="addBtn" onclick="addMoney('loan_period','1')" value="+1" />
-                <br>
-                <input type="button" class="addBtn" onclick="addMoney('loan_period','-10')" value="-10" />
-                <input type="button" class="addBtn" onclick="addMoney('loan_period','-1')" value="-1" />
+
             </span>
         </div>
         <div class="chat">
             <div class="chat__avatar">거치기간</div>
             <div class="chat__text">
                 <span class="chat__username">
-                    <input type="text" id="neglect_period" disabled style="text-align: right;" />
+                    <input type="text" id="neglect_period" disabled style="text-align: right;" /> 개월
                 </span>
-                <span class="chat__preview">개월</span>
+                <span class="chat__preview">
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('neglect_period','12')"
+                            value="+1년" />
+                        <input type="button" class="addBtn btn" onclick="addMoney2('neglect_period','1')"
+                            value="+1개월" />
+                    </p>
+                    <p style="display:inline-block">
+                        <input type="button" class="addBtn btn" onclick="addMoney2('neglect_period','-12')"
+                            value="-1년" />
+                        <input type="button" class="addBtn btn" onclick="addMoney2('neglect_period','-1')"
+                            value="-1개월" />
+                    </p>
+                </span>
             </div>
             <span class="chat__date">
-                <input type="button" class="addBtn" onclick="addMoney('neglect_period','12')" value="+12" />
-                <input type="button" class="addBtn" onclick="addMoney('neglect_period','6')" value="+6" />
-                <input type="button" class="addBtn" onclick="addMoney('neglect_period','1')" value="+1" />
-                <br>
-                <input type="button" class="addBtn" onclick="addMoney('neglect_period','-12')" value="-12" />
-                <input type="button" class="addBtn" onclick="addMoney('neglect_period','-6')" value="-6" />
-                <input type="button" class="addBtn" onclick="addMoney('neglect_period','-1')" value="-1" />
+
             </span>
         </div>
         <div class="chat">

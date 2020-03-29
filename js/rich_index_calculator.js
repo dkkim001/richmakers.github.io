@@ -1,13 +1,13 @@
-function updateStart2() {
-    rich_change_result2();
+function updateStart1() {
+    rich_change_result1();
 }
 
-function updateEnd2() {
-    rich_change_result2();
+function updateEnd1() {
+    rich_change_result1();
 }
 
-function updateAge2() {
-    rich_change_result2();
+function updateAge1() {
+    rich_change_result1();
 }
 
 
@@ -15,7 +15,7 @@ function rich_index_reset() {
     document.getElementById("rich_start2").value = "";
     document.getElementById("rich_end2").value = "";
     document.getElementById("rich_age2").value = "";
-    rich_change_result2();
+    rich_change_result1();
     document.getElementById("resultArea").innerHTML = "";
 }
 function loan() {
@@ -26,10 +26,10 @@ function addMoney(id, money) {
         Number(numberWithOutCommas(document.getElementById(id).value)) +
         Number(money);
 
-    updateStart2();
+    updateStart1();
 }
 
-function rich_change_result2() {
+function rich_change_result1() {
     var rich_start2_value = document.getElementById("rich_start2").value;
     var rich_end2_value = document.getElementById("rich_end2").value;
     var rich_age2_value = document.getElementById("rich_age2").value;

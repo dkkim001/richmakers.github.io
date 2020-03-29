@@ -3,8 +3,22 @@ document.write("<script src='../js/loan_interest_calculator.js'></script>");
 
 function init() {
   includeHTML();
-}
+  var footerIndex = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+  var selectedFooter = '<span class="fa-stack fa-lg"> <i class="fa fa-square-o fa-stack-2x"></i> <i class="fa fa-calculator fa-stack-1x"></i> </span>';
+  var nomalFooter = '<i class="fa fa-calculator fa-lg"></i>';
+  if ('index.html' == footerIndex) {
+    footerIndex = 0;
+  } else if ('index2.html' == footerIndex) {
+    footerIndex = 1;
+  } else if ('index3.html' == footerIndex) {
+    footerIndex = 2;
+  } else if ('index4.html' == footerIndex) {
+    footerIndex = 3;
+  }
 
+  var footer = document.querySelectorAll(".footer__icon")[footerIndex];
+  footer.innerHTML(selectedFooter);
+}
 
 function numberWithOutCommas(x) {
   return x.toString().replace(/[","]/g, "");

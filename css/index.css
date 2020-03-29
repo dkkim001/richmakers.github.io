@@ -39,8 +39,8 @@ body {
 }
 
 .chat__avatar {
-  width: 21%;
-  /* height: 50px; */
+  width: 7vw;
+  height: 10vh;
   border-radius: 50%;
 }
 
@@ -52,11 +52,11 @@ body {
 .chat__username
 ,.chat__username input{
   font-weight: 600;
-  display: inline;
-  width: 20%;
+  display: block;
 }
 .chat__username input {
-  width: 50px;
+  width: 10vh;
+  display:inline;
 }
 .chat__preview,
 .chat__date {
@@ -67,7 +67,7 @@ body {
 .chat__date {
   font-size: 12px;
   text-align: left;
-  width:50%;
+  /* width:50%; */
 }
 
 .footer {
@@ -124,4 +124,26 @@ input[type="button"] {
   margin: 4px 2px;
   cursor: pointer;
   font-size: 12px;
+}
+
+.btn {
+  background-color: orange;
+  display: inline-block;
+  max-width: 15vw;
+  max-height: 4vh;
+  padding: 1px 2px;
+  margin: 5px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 9px #B0B0B0;
+}
+.btn:hover { background-color: #FF8C00; }
+.btn:active {
+  background-color: #FF8C00;
+  box-shadow: 0 5px #808080;
+  transform: translateY(4px);
 }

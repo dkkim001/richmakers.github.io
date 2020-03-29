@@ -22,7 +22,7 @@ function loan_interest_reset() {
 function loan() {
     document.location.href = "loanInterest.html";
 }
-function addMoney(id, money) {
+function addMoney2(id, money) {
     document.getElementById(id).value =
         Number(numberWithOutCommas(document.getElementById(id).value)) +
         Number(money);
